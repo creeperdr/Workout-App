@@ -1,0 +1,218 @@
+#:kivy 2.1.0
+ScreenManager:
+    MainMenuScreen:
+    CalendarMenuScreen:
+    WorkoutMenuScreen:
+    AddWorkoutScreen:
+        id: add_workout
+    WaterMenuScreen:
+    FoodMenuScreen:
+    GoalsMenuScreen:
+    SettingMenuScreen:
+    ColorSettingScreen:
+
+<MainMenuScreen>
+    name: 'main menu'
+    MDLabel:
+        text: 'Workout App'
+        font_size: '30sp'
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color
+        pos_hint: {'center_x': 0.5, 'center_y': 0.9}
+        halign: 'center'
+    MDIconButton:
+        icon: 'calendar'
+        icon_size: '100sp'
+        pos_hint: {'center_x':0.3, 'center_y':0.75}
+        theme_icon_color: "Custom"
+        icon_color: app.theme_cls.primary_color
+        on_release: root.manager.current = 'calendar menu'
+    MDIconButton:
+        icon: 'run'
+        icon_size: '100sp'
+        pos_hint: {'center_x':0.7, 'center_y':0.75}
+        theme_icon_color: "Custom"
+        icon_color: app.theme_cls.primary_color
+        on_release: root.manager.current = 'workout menu'
+    MDIconButton:
+        icon: 'water'
+        icon_size: '100sp'
+        pos_hint: {'center_x':0.3, 'center_y':0.5}
+        theme_icon_color: "Custom"
+        icon_color: app.theme_cls.primary_color
+        on_release: root.manager.current = 'water menu'
+    MDIconButton:
+        icon: 'silverware'
+        icon_size: '100sp'
+        pos_hint: {'center_x':0.7, 'center_y':0.5}
+        theme_icon_color: "Custom"
+        icon_color: app.theme_cls.primary_color
+        on_release: root.manager.current = 'food menu'
+    MDIconButton:
+        icon: 'menu'
+        icon_size: '100sp'
+        pos_hint: {'center_x':0.3, 'center_y':0.25}
+        theme_icon_color: "Custom"
+        icon_color: app.theme_cls.primary_color
+        on_release: root.manager.current = 'goals menu'
+    MDIconButton:
+        icon: 'cog'
+        icon_size: '100sp'
+        pos_hint: {'center_x':0.7, 'center_y':0.25}
+        theme_icon_color: "Custom"
+        icon_color: app.theme_cls.primary_color
+        on_release: root.manager.current = 'setting menu'
+
+<CalendarMenuScreen>
+    name: 'calendar menu'
+    MDIconButton:
+        icon: 'arrow-left'
+        pos_hint: {'center_x':0.1, 'center_y':0.93}
+        on_release: root.manager.current = 'main menu'
+    
+<WorkoutMenuScreen>
+    name: 'workout menu'
+    MDIconButton:
+        icon: 'arrow-left'
+        pos_hint: {'center_x':0.1, 'center_y':0.93}
+        on_release:root.manager.current = 'main menu'
+    MDIconButton:
+        icon: 'plus'
+        icon_size: '70sp'
+        pos_hint: {'center_x':0.35, 'center_y':0.125}
+        theme_icon_color: "Custom"
+        icon_color: [0.2980392156862745, 0.6862745098039216, 0.3137254901960784, 1.0]
+        on_release: root.manager.current = 'add workout'
+    MDIconButton:
+        icon: 'trash-can-outline'
+        icon_size: '70sp'
+        pos_hint: {'center_x':0.65, 'center_y':0.125}
+        theme_icon_color: "Custom"
+        icon_color: [0.9568627450980393, 0.2627450980392157, 0.21176470588235294, 1.0]
+
+<AddWorkoutScreen>
+    name: 'add workout'
+    MDIconButton:
+        icon: 'arrow-left'
+        pos_hint: {'center_x':0.1, 'center_y':0.93}
+        on_release: root.manager.current = 'workout menu'
+    MDCard:
+        id: add_workout_card
+        size_hint: .7, .45
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        elevation: 5
+        padding: 10
+        spacing: 15
+        orientation: 'vertical'
+        MDLabel:
+            text: 'Add Workout'
+            halign: 'center'
+            size_hint_y: None
+            height: self.texture_size[1]
+            font_size: 22
+            padding_y: 15
+        MDTextField:
+            id: workout_name
+            mode: 'round'
+            hint_text: 'Workout Name'
+            required: True
+            halign: 'center'
+            width: 200
+        MDTextField:
+            id: number_exercises
+            mode: 'round'
+            hint_text: 'Number of Exercises'
+            required: True
+            halign: 'center'
+            width: 200
+        MDFillRoundFlatButton:
+            text: 'Add to Workouts'
+            halign: 'center'
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            on_release: app.create_new_workout()
+
+<WaterMenuScreen>
+    name: 'water menu'
+    MDIconButton:
+        icon: 'arrow-left'
+        pos_hint: {'center_x':0.1, 'center_y':0.93}
+        on_release:root.manager.current = 'main menu'
+
+<FoodMenuScreen>
+    name: 'food menu'
+    MDIconButton:
+        icon: 'arrow-left'
+        pos_hint: {'center_x':0.1, 'center_y':0.93}
+        on_release: root.manager.current = 'main menu'
+
+<GoalsMenuScreen>
+    name: 'goals menu'
+    MDIconButton:
+        icon: 'arrow-left'
+        pos_hint: {'center_x':0.1, 'center_y':0.93}
+        on_release: root.manager.current = 'main menu'
+
+<SettingMenuScreen>
+    name: 'setting menu'
+    MDIconButton:
+        icon: 'arrow-left'
+        pos_hint: {'center_x':0.1, 'center_y':0.93}
+        on_release: root.manager.current = 'main menu'
+    MDRectangleFlatButton:
+        text: 'Change App Theme'
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color
+        line_color: app.theme_cls.primary_color
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+        on_release: root.manager.current = 'color setting'
+
+<ColorSettingScreen>
+    name: 'color setting'
+    MDIconButton:
+        icon: 'arrow-left'
+        pos_hint: {'center_x':0.1, 'center_y':0.93}
+        on_release: root.manager.current = 'setting menu'
+    MDFillRoundFlatButton:
+        text: "Red"
+        theme_text_color: "Custom"
+        text_color: "white"
+        md_bg_color: "red"
+        pos_hint: {'center_x':0.3, 'center_y':0.75}
+        on_release: app.change_color("Red") 
+    MDFillRoundFlatButton:
+        text: "Orange"
+        theme_text_color: "Custom"
+        text_color: "white"
+        md_bg_color: "orange"
+        pos_hint: {'center_x':0.7, 'center_y':0.75}
+        on_release: app.change_color("Orange") 
+    MDFillRoundFlatButton:
+        text: "Yellow"
+        theme_text_color: "Custom"
+        text_color: "white"
+        md_bg_color: [1.0, 0.7568627450980392, 0.027450980392156862, 1.0]
+        pos_hint: {'center_x':0.3, 'center_y':0.5}
+        on_release: app.change_color("Amber") 
+    MDFillRoundFlatButton:
+        text: "Green"
+        theme_text_color: "Custom"
+        text_color: "white"
+        md_bg_color: "green"
+        pos_hint: {'center_x':0.7, 'center_y':0.5}
+        on_release: app.change_color("Green") 
+    MDFillRoundFlatButton:
+        text: "Blue"
+        theme_text_color: "Custom"
+        text_color: "white"
+        md_bg_color: "blue"
+        pos_hint: {'center_x':0.3, 'center_y':0.25}
+        on_release: app.change_color("Blue") 
+    MDFillRoundFlatButton:
+        text: "Purple"
+        theme_text_color: "Custom"
+        text_color: "white"
+        md_bg_color: "purple"
+        pos_hint: {'center_x':0.7, 'center_y':0.25}
+        on_release: app.change_color("Purple") 
+        
