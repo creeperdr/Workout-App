@@ -76,6 +76,22 @@ ScreenManager:
         icon: 'arrow-left'
         pos_hint: {'center_x':0.1, 'center_y':0.93}
         on_release:root.manager.current = 'main menu'
+    MDLabel:
+        id: workout_label
+        halign: 'center'
+        markup: True
+        text: "[size=45][b]Workouts[/b][/size]"
+        pos_hint: {'y': .44}
+
+    #List of tasks
+    ScrollView:
+        pos_hint: {'center_y': .5, 'center_x': .5}
+        size_hint: .9, .8
+
+        MDList:
+            id: workout_container
+
+    #Bottom Buttons
     MDIconButton:
         icon: 'plus'
         icon_size: '70sp'

@@ -86,8 +86,7 @@ class WorkoutApp(MDApp):
             self.root.ids.add_workout.ids.workout_name.text, new_workout)
 
     def add_exercise(self, x):
-        print(str(x) + "in add_exercise")
-        name = str(x)
+        name = str(x+1)
         stuff = {"timer": 0.0,
                  "counterr": 0}
         # change to new popup, ask for the name of the exercise, ask if timer or counter,
