@@ -80,6 +80,15 @@ ScreenManager:
         pos_hint: {'center_x':0.1, 'center_y':0.93}
         on_release: root.manager.current = 'main menu'
     
+    MDLabel:
+        id: calendar_label
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color
+        halign: 'center'
+        markup: True
+        text: "[size=45][b]Calendar[/b][/size]"
+        pos_hint: {'y': .44}
+    
 <WorkoutMenuScreen>
     name: 'workout menu'
     
@@ -98,7 +107,7 @@ ScreenManager:
         pos_hint: {'y': .44}
 
     #List of tasks
-    ScrollView:
+    MDScrollView:
         pos_hint: {'center_y': .5, 'center_x': .5}
         size_hint: .9, .8
 
@@ -106,71 +115,14 @@ ScreenManager:
             id: workout_container
 
     #Bottom Buttons
-    
-    MDIconButton:
+    MDFloatingActionButton:
         icon: 'plus'
         icon_size: '70sp'
-        pos_hint: {'center_x':0.35, 'center_y':0.125}
-        theme_icon_color: "Custom"
-        icon_color: [0.2980392156862745, 0.6862745098039216, 0.3137254901960784, 1.0]
-        on_release: app.show_exercise_dialog()
-    
-    MDIconButton:
-        icon: 'trash-can-outline'
-        icon_size: '70sp'
-        pos_hint: {'center_x':0.65, 'center_y':0.125}
-        theme_icon_color: "Custom"
-        icon_color: [0.9568627450980393, 0.2627450980392157, 0.21176470588235294, 1.0]
-
-<AddWorkoutScreen>
-    name: 'add workout'
-    
-    MDIconButton:
-        icon: 'arrow-left'
-        pos_hint: {'center_x':0.1, 'center_y':0.93}
-        on_release: root.manager.current = 'workout menu'
-    
-    MDCard:
-        id: add_workout_card
-        size_hint: .7, .45
-        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        elevation: 5
-        padding: 10
-        spacing: 15
-        orientation: 'vertical'
-        
-        MDLabel:
-            markup: True
-            text: 'Add Workout'
-            halign: 'center'
-            size_hint_y: None
-            height: self.texture_size[1]
-            font_size: 22
-            padding_y: 15
-        
-        MDTextField:
-            id: workout_name
-            mode: 'round'
-            hint_text: 'Workout Name'
-            required: True
-            halign: 'center'
-            width: 200
-        
-        MDTextField:
-            id: number_exercises
-            mode: 'round'
-            hint_text: 'Number of Exercises'
-            required: True
-            halign: 'center'
-            width: 200
-        
-        MDFillRoundFlatButton:
-            markup: True
-            text: 'Add to Workouts'
-            halign: 'center'
-            pos_hint: {'center_x': 0.5}
-            md_bg_color: app.theme_cls.primary_color
-            on_release: app.create_new_workout()
+        pos_hint: {'center_x':0.775, 'center_y':0.1}
+        md_bg_color: [0.2980392156862745, 0.6862745098039216, 0.3137254901960784, 1.0]
+        #theme_icon_color: "Custom"
+        #icon_color: [0.2980392156862745, 0.6862745098039216, 0.3137254901960784, 1.0]
+        on_release: app.show_workout_dialog()
 
 <WaterMenuScreen>
     name: 'water menu'
@@ -179,6 +131,15 @@ ScreenManager:
         icon: 'arrow-left'
         pos_hint: {'center_x':0.1, 'center_y':0.93}
         on_release:root.manager.current = 'main menu'
+    
+    MDLabel:
+        id: water_label
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color
+        halign: 'center'
+        markup: True
+        text: "[size=45][b]Water Log[/b][/size]"
+        pos_hint: {'y': .44}
 
 <FoodMenuScreen>
     name: 'food menu'
@@ -187,6 +148,15 @@ ScreenManager:
         icon: 'arrow-left'
         pos_hint: {'center_x':0.1, 'center_y':0.93}
         on_release: root.manager.current = 'main menu'
+    
+    MDLabel:
+        id: food_label
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color
+        halign: 'center'
+        markup: True
+        text: "[size=45][b]Food Log[/b][/size]"
+        pos_hint: {'y': .44}
 
 <GoalsMenuScreen>
     name: 'goals menu'
@@ -195,6 +165,15 @@ ScreenManager:
         icon: 'arrow-left'
         pos_hint: {'center_x':0.1, 'center_y':0.93}
         on_release: root.manager.current = 'main menu'
+    
+    MDLabel:
+        id: goals_label
+        theme_text_color: "Custom"
+        text_color: app.theme_cls.primary_color
+        halign: 'center'
+        markup: True
+        text: "[size=45][b]Goals[/b][/size]"
+        pos_hint: {'y': .44}
 
 <SettingMenuScreen>
     name: 'setting menu'
@@ -204,14 +183,29 @@ ScreenManager:
         pos_hint: {'center_x':0.1, 'center_y':0.93}
         on_release: root.manager.current = 'main menu'
     
-    MDRectangleFlatButton:
-        markup: True
-        text: 'Change App Theme'
+    MDLabel:
+        id: settings_label
         theme_text_color: "Custom"
         text_color: app.theme_cls.primary_color
-        line_color: app.theme_cls.primary_color
-        pos_hint: {'center_x':0.5, 'center_y':0.5}
-        on_release: root.manager.current = 'color setting'
+        halign: 'center'
+        markup: True
+        text: "[size=45][b]Settings[/b][/size]"
+        pos_hint: {'y': .44}
+    
+    MDScrollView:
+        pos_hint: {'center_y': .65, 'center_x': .5}
+        size_hint: .9, .5
+        
+        MDList:
+        
+            MDRectangleFlatButton:
+                markup: True
+                text: 'Change App Theme'
+                theme_text_color: "Custom"
+                text_color: app.theme_cls.primary_color
+                line_color: app.theme_cls.primary_color
+                pos_hint: {'center_x':0.5}
+                on_release: root.manager.current = 'color setting'
 
 <ColorSettingScreen>
     name: 'color setting'
@@ -319,48 +313,57 @@ ScreenManager:
     orientation: "vertical"
     spacing: "10dp"
     size_hint: 1, None
-    height: "160dp"
+    height: "200dp"
 
-    MDLabel:
-        markup: True
-        text: 'Add Exercise'
-        halign: 'center'
-        size_hint_y: None
-        height: self.texture_size[1]
-        font_size: 22
-        padding_y: 15
-
-    MDTextField:
-        id: exercise_name
-        mode: 'round'
-        hint_text: 'Workout Name'
-        required: True
-        halign: 'center'
-        width: 200
-    
-    MDSwitch:
-        active: True
-        pos_hint: {'center_x': 0.5}
-        icon_active: "clock"
-        icon_inactive: "reload"
-        on_active: app.add_exercise_field(*args)
+    MDList:
+        id: exercise_dialog_list
         
-    MDFillRoundFlatButton:
-        markup: True
-        text: 'Add to Workout'
-        halign: 'center'
-        pos_hint: {'center_x': 0.5}
-        md_bg_color: app.theme_cls.primary_color
-        on_release: (app.create_new_workout(workout_name.text, number_exercises.text), app.close_workout_dialog())
+        MDLabel:
+            markup: True
+            text: 'Add Exercise'
+            halign: 'center'
+            size_hint_y: None
+            height: self.texture_size[1]
+            font_size: 22
+            padding_y: 15
+
+        MDTextField:
+            id: exercise_name
+            mode: 'round'
+            hint_text: 'Workout Name'
+            required: True
+            halign: 'center'
+            width: 200
+        
+#        MDSwitch:
+#            id: exercise_type
+#            active: True
+#            pos_hint: {'center_x': 0.5}
+#            icon_active: "clock"
+#            icon_inactive: "reload"
+#            on_active: app.add_exercise_field(*args)
+            
+        MDFillRoundFlatButton:
+            markup: True
+            text: 'Add to Workout'
+            halign: 'center'
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            on_release: (app.add_exercise(exercise_name.text), app.close_exercise_dialog())
 
 
-<ListItemWithCheckbox>:
-    id: the_list_item
+<WorkoutListItem>:
+    id: workout_list_item
     markup: True
 
     IconRightWidget:
         icon: 'trash-can-outline'
         theme_icon_color: "Custom"
         icon_color: [0.9568627450980393, 0.2627450980392157, 0.21176470588235294, 1.0]
-        on_release:
-            root.delete_item(the_list_item)
+        on_release: (app.remove_workout(workout_list_item.text), root.delete_item(workout_list_item))
+
+<Content>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "120dp"

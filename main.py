@@ -2,9 +2,11 @@ import json
 
 from kivymd.app import MDApp
 from kivymd.uix.boxlayout import MDBoxLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDFlatButton, MDRectangleFlatButton, MDIconButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.list import TwoLineRightIconListItem
+from kivymd.uix.textfield import MDTextField
 from kivymd.theming import ThemeManager
 
 from kivy.properties import StringProperty
@@ -95,13 +97,13 @@ class WorkoutApp(MDApp):
         if not self.add_workout_dialog:
             self.add_workout_dialog = MDDialog(
                 type="custom",
-                content_cls=WorkoutDialogContent(),
-            )
+                content_cls=WorkoutDialogContent())
 
         self.add_workout_dialog.open()
 
-    def close_workout_dialog(self, *args):
+    def close_workout_dialog(self):
         self.add_workout_dialog.dismiss()
+        self.add_workout_dialog = None
 
     def create_new_workout(self, workout_name, number_exercises):
         new_workout = {}
@@ -122,7 +124,8 @@ class WorkoutApp(MDApp):
     def add_exercise_field(self, checkbox, value):
         if value:
             print('timer')
-            # add_widget timer text field
+            self.add_exercise_dialog.add_widget(ExerciseListItem())
+            self.add_exercise_dialog.add_widget(ExerciseListItem())
         else:
             print('reps')
             # add_widget reps text field
@@ -144,6 +147,14 @@ class WorkoutApp(MDApp):
         workouts[name] = exercises
         self.root.ids.workout_menu.ids['workout_container'].add_widget(WorkoutListItem(
             text='[b]' + name + '[/b]', secondary_text=str(len(exercises.keys())) + ' exercises'))
+        with open("workouts.json", "w") as f:
+            json.dump(workouts, f, indent=4)
+        f.close()
+
+    def remove_workout(self, workout_list_item):
+        left = workout_list_item.split('[')
+        right = left[1].split(']')
+        x = workouts.pop(right[1])
         with open("workouts.json", "w") as f:
             json.dump(workouts, f, indent=4)
         f.close()
@@ -193,16 +204,59 @@ class ExerciseDialogContent(MDBoxLayout):
         super().__init__(**kwargs)
 
 
+class ExerciseListItem(MDTextField):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def delete_item(self, exercise_list_item):
+        self.parent.remove_widget(exercise_list_item)
+
+
+class Content(BoxLayout):
+    pass
+
+
 class WorkoutListItem(TwoLineRightIconListItem):
+    # confirm_delete_dialog = None
 
     def __init__(self, pk=None, **kwargs):
         super().__init__(**kwargs)
         self.pk = pk
 
-    def delete_item(self, the_list_item):
-        self.parent.remove_widget(the_list_item)
-        # add delete from dictionary
+    def delete_item(self, workout_list_item):
+        self.parent.remove_widget(workout_list_item)
+        # add confirm dialog
 
+
+'''
+    def confirm_delete(self, workout_list_item):
+        if not self.confirm_delete_dialog:
+            self.confirm_delete_dialog = MDDialog(
+                title="Confirm Workout Deletion",
+                type="custom",
+                content_cls=Content(),
+                text='This will delte your workout forever, arre you sure you want to continue?',
+                buttons=[
+                    MDFlatButton(
+                        text="CANCEL",
+                        theme_text_color="Custom",
+                        text_color=self.theme_cls.primary_color,
+                        on_release=self.close()
+                    ),
+                    MDFlatButton(
+                        text="DELETE",
+                        theme_text_color="Custom",
+                        ext_color=self.theme_cls.primary_color,
+                        on_release=self.delete_item(workout_list_item)
+                    ),
+                ]
+            )
+        self.confirm_delete_dialog.open()
+
+    def close(self):
+        print("close")
+        # self.confirm_delete_dialog.dismiss()
+'''
 
 if __name__ == '__main__':
     WorkoutApp().run()
