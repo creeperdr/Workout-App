@@ -2,14 +2,17 @@
 ScreenManager:
     MainMenuScreen:
     CalendarMenuScreen:
+        id: calendar_menu
     WorkoutMenuScreen:
         id: workout_menu
-    AddWorkoutScreen:
-        id: add_workout
     WaterMenuScreen:
+        id: water_menu
     FoodMenuScreen:
+        id: food_menu
     GoalsMenuScreen:
+        id: goals_menu
     SettingMenuScreen:
+        id: settings_menu
     ColorSettingScreen:
 
 <MainMenuScreen>
@@ -106,7 +109,6 @@ ScreenManager:
         text: "[size=45][b]Workouts[/b][/size]"
         pos_hint: {'y': .44}
 
-    #List of tasks
     MDScrollView:
         pos_hint: {'center_y': .5, 'center_x': .5}
         size_hint: .9, .8
@@ -114,14 +116,11 @@ ScreenManager:
         MDList:
             id: workout_container
 
-    #Bottom Buttons
     MDFloatingActionButton:
         icon: 'plus'
         icon_size: '70sp'
         pos_hint: {'center_x':0.775, 'center_y':0.1}
         md_bg_color: [0.2980392156862745, 0.6862745098039216, 0.3137254901960784, 1.0]
-        #theme_icon_color: "Custom"
-        #icon_color: [0.2980392156862745, 0.6862745098039216, 0.3137254901960784, 1.0]
         on_release: app.show_workout_dialog()
 
 <WaterMenuScreen>
@@ -141,6 +140,20 @@ ScreenManager:
         text: "[size=45][b]Water Log[/b][/size]"
         pos_hint: {'y': .44}
 
+    MDScrollView:
+        pos_hint: {'center_y': .5, 'center_x': .5}
+        size_hint: .9, .8
+
+        MDList:
+            id: water_container
+
+    MDFloatingActionButton:
+        icon: 'plus'
+        icon_size: '70sp'
+        pos_hint: {'center_x':0.775, 'center_y':0.1}
+        md_bg_color: [0.2980392156862745, 0.6862745098039216, 0.3137254901960784, 1.0]
+        on_release: app.show_water_dialog()
+
 <FoodMenuScreen>
     name: 'food menu'
     
@@ -157,6 +170,21 @@ ScreenManager:
         markup: True
         text: "[size=45][b]Food Log[/b][/size]"
         pos_hint: {'y': .44}
+    
+    #List of tasks
+    MDScrollView:
+        pos_hint: {'center_y': .5, 'center_x': .5}
+        size_hint: .9, .8
+
+        MDList:
+            id: food_container
+    
+    MDFloatingActionButton:
+        icon: 'plus'
+        icon_size: '70sp'
+        pos_hint: {'center_x':0.775, 'center_y':0.1}
+        md_bg_color: [0.2980392156862745, 0.6862745098039216, 0.3137254901960784, 1.0]
+        on_release: app.show_food_dialog()
 
 <GoalsMenuScreen>
     name: 'goals menu'
@@ -351,6 +379,75 @@ ScreenManager:
             md_bg_color: app.theme_cls.primary_color
             on_release: (app.add_exercise(exercise_name.text), app.close_exercise_dialog())
 
+<WaterDialogContent>:
+    orientation: "vertical"
+    spacing: "10dp"
+    size_hint: 1, None
+    height: "130dp"
+
+    GridLayout:
+        rows: 1
+
+        MDTextField:
+            id: gallons_consumed
+            mode: 'round'
+            hint_text: "Gallons of water"
+            pos_hint: {"center_y": .4}
+
+        MDIconButton:
+            icon: 'calendar'
+            on_release: root.show_date_picker()
+            padding: '10dp'
+
+    MDLabel:
+        spacing: '10dp'
+        id: date_text
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        MDFillRoundFlatButton:
+            text: "SAVE"
+            on_release: (app.add_water(date_text.text, gallons_consumed.text), app.close_water_dialog())
+        MDFlatButton:
+            text: 'CANCEL'
+            on_release: app.close_water_dialog()
+
+<FoodDialogContent>:
+    orientation: "vertical"
+    spacing: "10dp"
+    size_hint: 1, None
+    height: "130dp"
+
+    GridLayout:
+        rows: 1
+
+        MDTextField:
+            id: calories_consumed
+            mode: 'round'
+            hint_text: "Calories Eaten"
+            pos_hint: {"center_y": .4}
+
+        MDIconButton:
+            icon: 'calendar'
+            on_release: root.show_date_picker()
+            padding: '10dp'
+
+    MDLabel:
+        spacing: '10dp'
+        id: date_text
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        MDFillRoundFlatButton:
+            text: "SAVE"
+            on_release: (app.add_food(date_text.text, calories_consumed.text), app.close_food_dialog())
+        MDFlatButton:
+            text: 'CANCEL'
+            on_release: app.close_food_dialog()
+
+
 
 <WorkoutListItem>:
     id: workout_list_item
@@ -360,10 +457,24 @@ ScreenManager:
         icon: 'trash-can-outline'
         theme_icon_color: "Custom"
         icon_color: [0.9568627450980393, 0.2627450980392157, 0.21176470588235294, 1.0]
-        on_release: (app.remove_workout(workout_list_item.text), root.delete_item(workout_list_item))
+        on_release: (root.delete_item(workout_list_item))
 
-<Content>
-    orientation: "vertical"
-    spacing: "12dp"
-    size_hint_y: None
-    height: "120dp"
+<WaterListItem>:
+    id: water_list_item
+    markup: True
+
+    IconRightWidget:
+        icon: 'trash-can-outline'
+        theme_icon_color: "Custom"
+        icon_color: [0.9568627450980393, 0.2627450980392157, 0.21176470588235294, 1.0]
+        on_release: (root.delete_item(water_list_item))
+
+<FoodListItem>:
+    id: food_list_item
+    markup: True
+
+    IconRightWidget:
+        icon: 'trash-can-outline'
+        theme_icon_color: "Custom"
+        icon_color: [0.9568627450980393, 0.2627450980392157, 0.21176470588235294, 1.0]
+        on_release: (root.delete_item(food_list_item))
