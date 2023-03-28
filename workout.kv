@@ -20,7 +20,7 @@ ScreenManager:
     
     MDLabel:
         markup: True
-        text: 'Workout App'
+        text: '[b] Wellness Tracker [/b]'
         font_size: '30sp'
         theme_text_color: "Custom"
         text_color: app.theme_cls.primary_color
@@ -30,7 +30,7 @@ ScreenManager:
     MDIconButton:
         icon: 'calendar'
         icon_size: '100sp'
-        pos_hint: {'center_x':0.3, 'center_y':0.75}
+        pos_hint: {'center_x':0.3, 'center_y':0.70}
         theme_icon_color: "Custom"
         icon_color: app.theme_cls.primary_color
         on_release: root.manager.current = 'calendar menu'
@@ -38,7 +38,7 @@ ScreenManager:
     MDIconButton:
         icon: 'run'
         icon_size: '100sp'
-        pos_hint: {'center_x':0.7, 'center_y':0.75}
+        pos_hint: {'center_x':0.7, 'center_y':0.70}
         theme_icon_color: "Custom"
         icon_color: app.theme_cls.primary_color
         on_release: root.manager.current = 'workout menu'
@@ -46,7 +46,7 @@ ScreenManager:
     MDIconButton:
         icon: 'water'
         icon_size: '100sp'
-        pos_hint: {'center_x':0.3, 'center_y':0.5}
+        pos_hint: {'center_x':0.3, 'center_y':0.45}
         theme_icon_color: "Custom"
         icon_color: app.theme_cls.primary_color
         on_release: root.manager.current = 'water menu'
@@ -54,7 +54,7 @@ ScreenManager:
     MDIconButton:
         icon: 'silverware'
         icon_size: '100sp'
-        pos_hint: {'center_x':0.7, 'center_y':0.5}
+        pos_hint: {'center_x':0.7, 'center_y':0.45}
         theme_icon_color: "Custom"
         icon_color: app.theme_cls.primary_color
         on_release: root.manager.current = 'food menu'
@@ -62,7 +62,7 @@ ScreenManager:
     MDIconButton:
         icon: 'menu'
         icon_size: '100sp'
-        pos_hint: {'center_x':0.3, 'center_y':0.25}
+        pos_hint: {'center_x':0.3, 'center_y':0.20}
         theme_icon_color: "Custom"
         icon_color: app.theme_cls.primary_color
         on_release: root.manager.current = 'goals menu'
@@ -70,7 +70,7 @@ ScreenManager:
     MDIconButton:
         icon: 'cog'
         icon_size: '100sp'
-        pos_hint: {'center_x':0.7, 'center_y':0.25}
+        pos_hint: {'center_x':0.7, 'center_y':0.20}
         theme_icon_color: "Custom"
         icon_color: app.theme_cls.primary_color
         on_release: root.manager.current = 'setting menu'
